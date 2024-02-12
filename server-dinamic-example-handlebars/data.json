@@ -1,0 +1,33 @@
+{
+  "title": "Домашняя страница",
+  "name": "Алексей",
+  "isAdmin": true,
+  "items": [
+    "Car",
+    "House",
+    "PC"
+  ],
+  "user": {
+    "name": "Виктор",
+    "age": 25
+  },
+  "layout": false,
+  "todos": [
+    {
+      "task": "Buy milk",
+      "done": false
+    },
+    {
+      "task": "Read book",
+      "done": true
+    },
+    {
+      "task": "Завершить проект",
+      "done": false
+    },
+    {
+      "task": "Listen new Album",
+      "done": "true"
+    }
+  ]
+}

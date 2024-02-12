@@ -1,0 +1,13 @@
+<style>
+    ul { list-style: none; padding: 0; } li{ margin-bottom: 20px; h2{
+    margin-bottom: 5px; } p{ color:#888; font-size: 0.9rem; } }
+</style>
+
+<ul>
+    {{#each articles}}
+        <li>
+            <h2>{{this.title}}</h2>
+            <p>Published: {{formatDate this.publishDate "DD MMMM YYYY"}}</p>
+        </li>
+    {{/each}}
+</ul>

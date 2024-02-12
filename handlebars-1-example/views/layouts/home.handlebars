@@ -1,0 +1,27 @@
+<style>
+    h1{ color:red; } ul{ display: flex; justify-content: center; list-style:
+    none; }
+</style>
+
+<html>
+    <head>
+        <title>My page</title>
+    </head>
+    <body>
+        <h1>Hi, {{name}}!</h1>
+        {{#if isAdmin}}
+            <p>Доступ к административной панели</p>
+        {{else}}
+            <p>Доступ ограничен</p>
+        {{/if}}
+        <ul>
+            {{#each items}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+        <div>
+            <p>Имя пользователя: {{user.name}}</p>
+            <p>Возраст: {{user.age}}</p>
+        </div>
+    </body>
+</html>

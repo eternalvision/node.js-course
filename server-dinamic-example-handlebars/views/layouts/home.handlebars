@@ -1,0 +1,38 @@
+<style>
+    *{ margin: 0; padding: 0; font-family: sans-serif; color:#fafafa; } h1{
+    text-align: center; } html, body{ background-color: #1a1a1a; } .ok{
+    color:green; } .time{ color:orange; }
+</style>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{{title}}</title>
+    </head>
+    <body>
+        <h1>Привет, {{name}}!</h1>
+        {{#if isAdmin}}
+            <p>Доступ к административной панели.</p>
+        {{else}}
+            <p>Доступ ограничен.</p>
+        {{/if}}
+        <h2>Список фруктов:</h2>
+        <ul>
+            {{#each items}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+        <p>Имя пользователя: {{user.name}}, возраст: {{user.age}}</p>
+        <ul>
+            {{#each todos}}
+                <li>
+                    {{task}}
+                    =-
+                    {{#if done}} <span class="ok">Выполнено</span> {{else}}
+                        <span class="time">В процессе</span>
+                    {{/if}}</li>
+            {{/each}}
+        </ul>
+    </body>
+</html>

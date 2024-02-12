@@ -1,0 +1,54 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>Пользователи</h1>
+        <p>Создание пользователя</p>
+        <form action="/users" method="post">
+            <input type="text" name="name" placeholder="Имя" required />
+            <br />
+            <input type="text" name="email" placeholder="Емеил" required />
+            <br />
+            <input type="text" name="age" placeholder="Возраст" required />
+            <br />
+            <button type="submit">Add User</button>
+        </form>
+        <br />
+        <p>Изменение данных пользователя</p>
+        <form action="/users/update" method="post">
+            <input type="text" name="id" placeholder="ID" required />
+            <br />
+            <input type="text" name="name" placeholder="Имя" />
+            <br />
+            <input type="text" name="email" placeholder="Емеил" />
+            <br />
+            <input type="text" name="age" placeholder="Возраст" />
+            <br />
+            <button type="submit">Update user data</button>
+        </form>
+        <br />
+        <ul>
+            {{#each users}}
+                <li>
+                    Имя:
+                    {{this.name}},
+                    <br />
+                    Емеил:
+                    {{this.email}},
+                    <br />
+                    Возраст:
+                    {{this.age}},
+
+                    <form action="/users/delete" method="post">
+                        <input type="hidden" name="id" value="{{this._id}}" />
+                        <br />
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+            {{/each}}
+        </ul>
+    </body>
+</html>
