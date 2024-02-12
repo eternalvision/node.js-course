@@ -1,0 +1,44 @@
+[
+    {
+        "id": "djwfpo34234",
+        "time": "2024-01-26T19:06:34.253Z",
+        "url": "/",
+        "method": "GET"
+    },
+    {
+        "id": "lckvio0348903",
+        "time": "2024-01-26T19:06:58.990Z",
+        "url": "/",
+        "method": "GET"
+    },
+    {
+        "id": "7a9428f0-bc80-11ee-85cf-f3bf5955af7a",
+        "time": "2024-01-26T19:24:09.339Z",
+        "url": "/",
+        "method": "GET"
+    },
+    {
+        "id": "7ce67d60-bc80-11ee-b347-eb7720e6e963",
+        "time": "2024-01-26T19:24:13.236Z",
+        "url": "/",
+        "method": "GET"
+    },
+    {
+        "id": "859eb2b0-bc80-11ee-88c9-b3ccda583d18",
+        "time": "2024-01-26T19:24:27.864Z",
+        "url": "/friends",
+        "method": "PUT"
+    },
+    {
+        "id": "e8d67a70-bc80-11ee-9fba-03563613afd4",
+        "time": "2024-01-26T19:27:14.325Z",
+        "url": "/friends",
+        "method": "PUT"
+    },
+    {
+        "id": "f6078db0-bc80-11ee-93a3-bffe34c2e4e8",
+        "time": "2024-01-26T19:27:36.457Z",
+        "url": "/friends",
+        "method": "PUT"
+    }
+]
