@@ -1,0 +1,16 @@
+{
+    "name": "blocking-nonblocking-calls",
+    "version": "1.0.0",
+    "description": "",
+    "main": "BlockingAlert.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "startBlock": "nodemon BlockingAlert.js",
+        "startNoneBlock": "nodemon Non-BlockingAlert.js",
+        "startNoneBlockServer": "nodemon BlockingAlertServer.js",
+        "startNonBlockServer": "nodemon Non-BlockingAlert-Server.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}
