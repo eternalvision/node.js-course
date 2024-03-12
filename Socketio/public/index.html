@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <!-- <script src="../node_modules/socket.io/client-dist/socket.io.js"></script> -->
+    </head>
+    <body>
+        <input type="text" id="message" />
+        <button onclick="sendMessage()">Send</button>
+        <ul id="messages"></ul>
+
+        <script src="http://localhost:3101/socket.io/socket.io.js"></script>
+        <script src="./serverConnect.js"></script>
+        <script src="./index.js"></script>
+    </body>
+</html>
