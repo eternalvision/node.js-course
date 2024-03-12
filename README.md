@@ -1,38 +1,240 @@
-# Комплексный курс по Node.js.
+# Реализация системы аутентификации и авторизации
 
-Привет! Если ты здесь, значит, ты готов погрузиться в увлекательный мир серверной разработки с помощью Node.js. Этот курс — твой компас в мире backend-разработки на JavaScript, который откроет тебе двери к созданию масштабируемых и эффективных веб-приложений.
+## Шаги к реализации
 
-Этот курс подходит как для новичков, так и для тех, кто уже имеет опыт в программировании, но хочет расширить свои знания и навыки в работе с Node.js.
+1. **Установка необходимых пакетов**:
 
-Вот что тебя ждет в нашем путешествии:
+    - `jsonwebtoken` для создания и верификации токенов.
+    - `bcryptjs` для хеширования и проверки паролей.
 
-- **Знакомство с Node.js:** Узнаем, что такое Node.js и почему это мощный инструмент для разработки серверных приложений.
-- **Работа с npm:** Научимся использовать менеджер пакетов npm для управления зависимостями в твоих проектах.
-- **Основы асинхронности:** Погрузимся в мир асинхронного программирования, буферов, потоков и глобальных объектов.
-- **Создание веб-сервера:** Разберемся, как с помощью Node.js создавать веб-сервера и обрабатывать HTTP-запросы.
-- **Базы данных:** Научимся работать с базами данных, чтобы твои приложения могли эффективно хранить и обрабатывать данные.
-- **Express Framework:** Освоим Express — фреймворк для веб-приложений, который значительно упрощает разработку на Node.js.
-- **REST API:** Углубимся в создание RESTful API с Express для построения масштабируемых веб-сервисов.
-- **Масштабирование приложений:** Изучим методы и техники, которые помогут твоему приложению расти и развиваться.
-- **Финальный экзамен:** Проверим полученные знания и закрепим их на практике.
+2. **Создание модели пользователя с паролем**:
 
-### **Все модули разбиты по веткам**
+    - Убедимся, что в вашей модели пользователя есть поле для хранения хешированного пароля.
 
-| №   | Заглавиe                                   | Темы                                                                                                                                                                                                                                                                                                                                                                                                                           | Пары | Встречи |
-| --- | ------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ------- |
-| 1   | Введение                                   | 1) Введение в Node.js.                                                                                                                                                                                                                                                                                                                                                                                                         | 2    | 1       |
-| 2   | Пакеты и события                           | 2.1) Менеджер пакетов.<br />2.2) События в Node.js.                                                                                                                                                                                                                                                                                                                                                                            | 4    | 2       |
-| 3   | Буферы, потоки, файлы и глобальные объекты | 3.1) Использование буферов. Потоки.<br />3.2) Файлы. Глобальные объекты.                                                                                                                                                                                                                                                                                                                                                       | 4    | 2       |
-| 4   | Web-модуль и Web-клиент                    | 4.1) Web-модуль.<br />4.2) Web-клиент.                                                                                                                                                                                                                                                                                                                                                                                         | 4    | 2       |
-| 5   | Работа с базами данных                     | 5.1) Введение в базы данных.<br />5.2) PostgreSQL.<br />5.3) MongoDB.                                                                                                                                                                                                                                                                                                                                                          | 6    | 3       |
-| 6   | Express                                    | 6.1) Введение в Express Framework.<br />6.2) Продвинутая маршрутизация и обработка запросов.<br />6.3) Шаблонизаторы и генерация динамического контента. Переменные среды.<br />6.4) Подключение и работа с базами данных.<br />6.5) Управление сессиями и аутентификация.<br />6.6) Безопасность в Express приложениях.<br />6.7) Оптимизация и управление производительностью.<br />6.8) Масштабирование Express приложений. | 16   | 8       |
-| 7   | Создание полноценного приложения           | 7.1) Создание приложения. Организация структуры.<br />7.2) Реализация системы аутентификации.<br />7.3) Развертывание приложения на Amazon Elastic Beanstalk.                                                                                                                                                                                                                                                                  | 6    | 3       |
-| 8   | Почта                                      | 8) Почта. SendGrid. Nodemailer.                                                                                                                                                                                                                                                                                                                                                                                                | 2    | 1       |
-| 9   | Сокеты                                     | 9) Сокеты. WebSockets. Socket.io. Создание простого чата.                                                                                                                                                                                                                                                                                                                                                                      | 2    | 1       |
-| 10  | Финальный проект                           | 10.1) Планирование финального проекта.<br />10.2) Промежуточные ревью финального проекта. (при необходимости)<br />10.3) Презентация финального проекта                                                                                                                                                                                                                                                                        | 4    | 2       |
+3. **Регистрация пользователей**:
 
----
+    - Создадим маршрут для регистрации пользователей, где мы будем принимать имя пользователя и пароль, хешировать пароль с помощью bcrypt и сохранять пользователя в базу данных.
 
-Author: [Sasha Priadchenko](https://www.linkedin.com/in/priadchenko/)
+4. **Аутентификация пользователей**:
 
-Email: [al.pryadchenko@gmail.com](al.pryadchenko@gmail.com)
+    - Создадим маршрут для аутентификации, где пользователи могут войти, используя свои учетные данные. Проверим учетные данные и, если они верны, создадим JWT и отправим его пользователю.
+
+5. **Мидлвар для проверки токена**:
+
+    - Реализуем мидлвар, который будет проверять JWT в заголовках запросов и устанавливать пользователя для доступа в последующих маршрутах.
+
+## Установка пакетов
+
+```bash
+npm install jsonwebtoken bcryptjs
+```
+
+## Модель пользователя
+
+Добавим поле для пароля:
+
+```javascript
+const userSchema = new Schema({
+    name: String,
+    password: String, // Добавьте это поле
+    projects: [{ type: Schema.Types.ObjectId, ref: "Project" }],
+});
+```
+
+## Регистрация
+
+```javascript
+const bcrypt = require("bcryptjs");
+
+router.post("/register", async (req, res) => {
+    try {
+        const { name, password } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = new User({
+            name,
+            password: hashedPassword,
+        });
+        await newUser.save();
+        res.status(201).json({ message: "User created" });
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+```
+
+## Аутентификация
+
+```javascript
+const jwt = require("jsonwebtoken");
+
+router.post("/login", async (req, res) => {
+    try {
+        const { name, password } = req.body;
+        const user = await User.findOne({ name });
+        if (!user || !(await bcrypt.compare(password, user.password))) {
+            return res.status(401).send("Invalid credentials");
+        }
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+            expiresIn: "1h",
+        });
+        res.json({ token });
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+```
+
+Не забудьте добавить `JWT_SECRET` в `.env` файл.
+
+## Мидлвар для проверки токена
+
+```javascript
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+    if (token == null) return res.sendStatus(401);
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403);
+        req.user = user;
+        next();
+    });
+}
+```
+
+Используем этот мидлвар в маршрутах, где необходима аутентификация:
+
+```javascript
+app.use("/api/project", authenticateToken, projectRouter);
+```
+
+Это основы для добавления аутентификации и авторизации в ваше приложение. Убедитесь, что вы тщательно тестируете все части системы и обрабатываете возможные ошибки.
+
+## Добавление функциональности изменения пароля и удаления аккаунта пользователя
+
+Для добавления функциональности изменения пароля и удаления аккаунта пользователя, нам нужно будет добавить два новых маршрута в Express приложение. Мы уже реализовали мидлвар `authenticateToken`, который проверяет JWT и устанавливает объект `user` в `req`. Это позволит пользователям изменять свой пароль и удалять свой аккаунт после аутентификации.
+
+### Изменение пароля
+
+```javascript
+router.post("/change-password", authenticateToken, async (req, res) => {
+    try {
+        const { oldPassword, newPassword } = req.body;
+        const userId = req.user.userId; // ID пользователя из JWT
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).send("User not found");
+        }
+
+        // Проверяем старый пароль
+        const isMatch = await bcrypt.compare(oldPassword, user.password);
+        if (!isMatch) {
+            return res.status(400).send("Old password is incorrect");
+        }
+
+        // Хешируем новый пароль и обновляем пользователя
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        user.password = hashedPassword;
+        await user.save();
+
+        res.status(200).send("Password successfully changed");
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+```
+
+### Удаление аккаунта
+
+```javascript
+router.delete("/delete-account", authenticateToken, async (req, res) => {
+    try {
+        const userId = req.user.userId; // ID пользователя из JWT
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).send("User not found");
+        }
+
+        await User.deleteOne({ _id: userId });
+        res.status(200).send("Account successfully deleted");
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+```
+
+Эти два маршрута позволяют пользователям, которые успешно прошли аутентификацию, изменять свой пароль и удалять свои аккаунты. Важно убедиться в том, что они используют защиту, предоставляемую мидлваром `authenticateToken`, чтобы только аутентифицированные пользователи могли выполнять эти действия.
+
+## Валидация данных моделей `User` и `Project` с использованием библиотеки Joi
+
+Для валидации данных моделей `User` и `Project` с использованием библиотеки Joi, нам сначала нужно установить эту библиотеку, если мы ещё этого не сделали. Joi позволяет описать схемы валидации для данных, что помогает обеспечить их корректность перед сохранением в базу данных.
+
+### Установка Joi
+
+```bash
+npm install joi
+```
+
+### Валидация для модели User
+
+Создайте файл валидации, например `validation.js`, и определите в нём схему валидации для пользователя:
+
+```javascript
+const Joi = require("joi");
+
+const userValidationSchema = Joi.object({
+    name: Joi.string().min(3).max(30).required(),
+    password: Joi.string()
+        .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
+        .required(),
+    projects: Joi.array()
+        .items(Joi.string().regex(/^[0-9a-fA-F]{24}$/))
+        .optional(), // Проверяем, что это массив ObjectId
+});
+
+module.exports = {
+    userValidationSchema,
+};
+```
+
+### Валидация для модели Project
+
+Добавьте валидацию для проекта в тот же файл `validation.js`:
+
+```javascript
+const projectValidationSchema = Joi.object({
+    name: Joi.string().min(3).max(50).required(),
+    userIds: Joi.array()
+        .items(Joi.string().regex(/^[0-9a-fA-F]{24}$/))
+        .required(), // Проверяем, что это массив ObjectId
+});
+
+module.exports = {
+    userValidationSchema,
+    projectValidationSchema,
+};
+```
+
+### Применение Валидации
+
+Чтобы использовать эти схемы валидации в вашем приложении, вы должны интегрировать проверку данных на основе Joi перед выполнением операций, связанных с базой данных. Например, при создании нового пользователя или проекта:
+
+```javascript
+router.post("/register", async (req, res) => {
+    const { error } = userValidationSchema.validate(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    // Продолжаем регистрацию пользователя...
+});
+
+router.post("/projects", async (req, res) => {
+    const { error } = projectValidationSchema.validate(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    // Продолжаем создание проекта...
+});
+```
+
+Этот подход поможет нам убедиться, что данные, вводимые пользователями, соответствуют нашим требованиям, прежде чем они будут обработаны или сохранены. Joi предлагает гибкие возможности для описания и проверки данных, что позволяет легко адаптировать схемы валидации под наши конкретные потребности.
