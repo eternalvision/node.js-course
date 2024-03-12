@@ -1,0 +1,18 @@
+branch-defaults:
+  default:
+    environment: pr-manager
+    group_suffix: null
+global:
+  application_name: FS32ServerDeploy
+  branch: null
+  default_ec2_keyname: aws-eb
+  default_platform: Node.js 20 running on 64bit Amazon Linux 2023
+  default_region: us-west-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  repository: null
+  sc: null
+  workspace_type: Application
