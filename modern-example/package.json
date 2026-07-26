@@ -1,0 +1,12 @@
+{
+  "name": "lesson-2-modern-example",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "start": "node type-stripping.ts",
+    "test": "node --test"
+  }
+}

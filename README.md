@@ -1,131 +1,67 @@
-# Node.js Backend Course
+# 2.3. Что нового в современном Node.js 24
 
-Курс по серверной разработке на JavaScript: от устройства Node.js до проектирования, защиты и развёртывания Express-приложений.
+> Версия курса: 2026 · Базовая среда: **Node.js 24 LTS** · Формат модулей: **ESM**
 
-Основной стек:
+## Зачем этот урок
 
-- Node.js 24 LTS;
-- ECMAScript Modules;
-- Express 5;
-- PostgreSQL и MongoDB;
-- встроенный test runner `node:test`;
-- OpenAPI 3.1;
-- WebSocket и Socket.IO.
+После урока вы сможете: **Выберите встроенные возможности Node.js вместо лишних зависимостей и отличите stable API от experimental.**
 
-Материал рассчитан на разработчиков, которые уже знают основы JavaScript и хотят системно разобраться в backend-разработке.
+Ориентировочное время: 3–4 часа. Сначала прочитайте объяснение, затем запустите примеры и только после этого выполняйте практику.
 
-## Как устроен курс
-
-Каждый урок находится в отдельной ветке. Внутри ветки:
-
-- теория без привязки к устаревшим версиям библиотек;
-- небольшой запускаемый пример;
-- практические задания;
-- вопросы для самопроверки;
-- домашняя работа;
-- ссылки на официальную документацию.
-
-Ветки не являются последовательными состояниями одного приложения. Каждая ветка — самостоятельный учебный материал, который можно открыть и изучить отдельно.
-
-## Быстрый старт
-
-Понадобятся Git и Node.js 24.
+## Перед началом
 
 ```bash
-git clone https://github.com/eternalvision/node.js-course.git
-cd node.js-course
-git branch --all
-git switch <имя-ветки>
-cd modern-example
-npm install
-npm test
-npm start
+node --version
+npm --version
 ```
 
-Для примеров с PostgreSQL, MongoDB, SMTP и внешними API потребуются соответствующие сервисы и переменные среды.
+Нужна Node.js 24.x. Весь код этой ветки относится к новой версии курса; минимальный пример находится в `modern-example`.
 
-## Программа
+## Карта урока
 
-### 1. Основы Node.js
+- Встроенный `fetch`, WebSocket client, Web Streams, AbortController, Web Crypto и URL сближают серверные и браузерные API.
+- Type stripping запускает erasable TypeScript напрямую; он не проверяет типы и не заменяет `tsc --noEmit` в CI.
+- Permission Model ограничивает файловую систему, сеть, дочерние процессы, workers, addons и inspector по принципу deny by default.
+- `node:sqlite` в Node 24 имеет статус release candidate: удобен для локальных инструментов и embedded-сценариев, но статус надо учитывать.
+- `node --watch`, `--env-file`, встроенный test runner, coverage и globbing уменьшают обязательный toolchain.
+- `using`/`await using` и `Symbol.dispose` помогают детерминированно освобождать поддерживаемые ресурсы.
 
-| Урок | Содержание |
-| --- | --- |
-| [1. Введение в Node.js](../../tree/1.Введение-в-Node.js) | Runtime, V8, libuv, event loop, ESM и область применения Node.js |
-| [2.1. CLI и npm](../../tree/2.1.Взаимодействие-с-средой-Node.js.-Менеджер-пакетов-npm) | package.json, lock-файлы, npm scripts, переменные среды и CLI |
-| [2.2. Асинхронность и события](../../tree/2.2.Блокирующие-и-неблокирующие-вызовы.-Работа-с-событиями.-Класс-EventEmitter) | Promise, async/await, AbortSignal, EventEmitter и Worker Threads |
-| [2.3. Возможности Node.js 24](../../tree/2.3.Современные-возможности-Node.js-24) | Type stripping, Permission Model, node:sqlite и встроенные Web API |
+## Главное объяснение
 
-### 2. Данные и ввод-вывод
+Не запоминайте отдельные методы без модели. Сначала определите, где находится граница ответственности: runtime, транспорт, бизнес-логика, хранилище или инфраструктура. Затем выберите API и явно обработайте успешный результат, ожидаемую ошибку и отмену/завершение работы.
 
-| Урок | Содержание |
-| --- | --- |
-| [3.1. Buffer и потоки](../../tree/3.1.Использование-буферов,-потоков) | Buffer, Node Streams, Web Streams, pipeline и backpressure |
-| [3.2. Файлы и глобальные API](../../tree/3.2.Файлы.Глобальные-объекты) | fs/promises, path, URL, fetch, Web Crypto и безопасная работа с файлами |
+Современный Node.js следует использовать с поддерживаемой LTS-версией, ESM для нового кода, Promise API и встроенными возможностями там, где внешняя зависимость не даёт явной пользы. Экспериментальные API отмечайте отдельно и не делайте их обязательной частью production-решения без оценки риска.
 
-### 3. HTTP и тестирование
 
-| Урок | Содержание |
-| --- | --- |
-| [4.1. HTTP-сервер](../../tree/4.1.Основы-веб-модуля.Создание-веб-сервера) | node:http, маршрутизация, body, статусы, таймауты и graceful shutdown |
-| [4.2. HTTP-клиент](../../tree/4.2.Создание-веб-клиента.Углубление-в-архитектуру) | fetch, отмена, retry, idempotency и интеграция внешних API |
-| [4.3. Тестирование и диагностика](../../tree/4.3.Тестирование-диагностика-и-качество) | node:test, mocking, coverage, inspector и diagnostic reports |
 
-### 4. Базы данных
+## Практика
 
-| Урок | Содержание |
-| --- | --- |
-| [5.1. PostgreSQL](../../tree/5.1.Введение-в-базы-данных.Практика-с-PostgreSQL) | Реляционная модель, ограничения, CRUD и параметризованные запросы |
-| [5.2. Продвинутый SQL](../../tree/5.2.Расширенные-SQL-запросы.Многотабличные-базы-данных) | JOIN, индексы, транзакции, isolation и EXPLAIN ANALYZE |
-| [5.3. MongoDB](../../tree/5.3.MongoDB-и-Нормализация) | Документная модель, embedding, references, Mongoose и индексы |
+1. Запустите `.ts`-файл напрямую и отдельно выполните type checking.
+2. Запретите программе чтение файлов через Permission Model, затем разрешите только каталог примера.
+3. Создайте in-memory SQLite и выполните параметризованный запрос.
+4. Сделайте fetch-запрос с `AbortSignal.timeout`, не устанавливая HTTP-клиент.
+5. Для каждого API в примере найдите Stability Index в документации Node 24.
 
-### 5. Express 5
+## Самопроверка
 
-| Урок | Содержание |
-| --- | --- |
-| [6.1. Основы Express](../../tree/6.1.Введение-в-Express-Framework) | Приложение, middleware pipeline, request, response и обработка ошибок |
-| [6.2. Маршрутизация](../../tree/6.2.Продвинутая-маршрутизация.Обработка-запросов-в-Express) | Router, params, query, body, валидация и async handlers |
-| [6.3. Представления и конфигурация](../../tree/6.3.Шаблонизаторы.Генерация-динамического-контента.Переменные-среды) | Шаблонизаторы, escaping, view models и переменные среды |
-| [6.4. Аутентификация](../../tree/6.4.Управление-сессиями-и-аутентификация) | Cookies, серверные сессии, пароли, JWT и refresh rotation |
-| [6.5. Доступ к данным](../../tree/6.5.Подключение-и-работа-с-базами-данных-в-Express) | Controller, service, repository, connection pool и транзакции |
-| [6.6. Безопасность](../../tree/6.6.Безопасность-в-Express-приложениях) | Helmet, CORS, CSRF, rate limiting, валидация и OWASP |
-| [6.7. Производительность](../../tree/6.7.Оптимизация-и-управление-производительностью) | Профилирование, кэш, compression, логи, метрики и tracing |
-| [6.8. Production](../../tree/6.8.Развертывание.Масштабирование-Express-приложений.Документирование-через-Swagger) | OpenAPI, health checks, Docker, reverse proxy и масштабирование |
+- Могу объяснить тему своими словами, не повторяя определение.
+- Могу запустить пример и предсказать результат до запуска.
+- Обрабатываю ошибку явно и не раскрываю внутренние детали клиенту.
+- Понимаю, что в этом решении будет узким местом при росте нагрузки.
 
-### 6. Проектирование приложения
+## Домашнее задание
 
-| Урок | Содержание |
-| --- | --- |
-| [7.1. Архитектура](../../tree/7.1.Создание-приложения-и-организация-структуры) | Feature modules, composition root, dependency injection и тестируемые границы |
-| [7.2. Авторизация](../../tree/7.2.Реализация-системы-аутентификации-и-авторизации) | RBAC, object-level authorization, отзыв токенов и аудит |
-| [7.3. Развёртывание](../../tree/7.3.Развертывание-Node.js-приложения-на-Amazon-Elastic-Beanstalk) | AWS Elastic Beanstalk, IAM, health checks, rollout и rollback |
+Расширьте пример отдельной функцией, тестом успешного сценария и тестом ошибки. Добавьте короткий раздел «Почему я выбрал это решение» и команды запуска. Не добавляйте секреты, `node_modules` и реальные `.env`-файлы.
 
-### 7. Интеграции и real-time
+## Официальные материалы
 
-| Урок | Содержание |
-| --- | --- |
-| [8. Электронная почта](../../tree/8.Почта.SendGrid.Nodemailer) | Nodemailer, SMTP, очередь отправки, DKIM, DMARC и обработка bounce |
-| [9. WebSocket](../../tree/9.Сокеты.WebSockets.Socket.io.Создание-простого-чата) | WebSocket, Socket.IO, heartbeat, reconnect, rooms и масштабирование |
+- [TypeScript in Node.js](https://nodejs.org/docs/latest-v24.x/api/typescript.html)
+- [Permission Model](https://nodejs.org/docs/latest-v24.x/api/permissions.html)
+- [SQLite](https://nodejs.org/docs/latest-v24.x/api/sqlite.html)
+- [Globals and Web APIs](https://nodejs.org/docs/latest-v24.x/api/globals.html)
+- [CLI options](https://nodejs.org/docs/latest-v24.x/api/cli.html)
+- [Документация Node.js 24](https://nodejs.org/docs/latest-v24.x/api/)
 
-## Принципы курса
+## Что дальше
 
-- Сначала модель и устройство технологии, затем библиотека.
-- Внешняя зависимость добавляется только тогда, когда она решает реальную задачу.
-- Все входные данные считаются недоверенными.
-- Ошибки, завершение процесса и деградация проектируются заранее.
-- Производительность измеряется, а не угадывается.
-- Официальная документация имеет приоритет перед статьями и видео.
-
-## Основные источники
-
-- [Node.js 24 API](https://nodejs.org/docs/latest-v24.x/api/)
-- [Поддерживаемые версии Node.js](https://nodejs.org/en/about/previous-releases)
-- [Express 5 API](https://expressjs.com/en/5x/api.html)
-- [Express 5 migration guide](https://expressjs.com/en/guide/migrating-5.html)
-- [PostgreSQL documentation](https://www.postgresql.org/docs/current/)
-- [MongoDB documentation](https://www.mongodb.com/docs/)
-- [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/)
-- [OpenAPI 3.1](https://spec.openapis.org/oas/v3.1.1.html)
-
-## Автор
-
-[Sasha Priadchenko](https://www.linkedin.com/in/priadchenko/)
+Вернитесь на [главную страницу курса](https://github.com/eternalvision/node.js-course) и перейдите к следующей ветке по программе. Если ссылка или API изменились, источником истины считается официальная документация, а не снимок экрана или старый lock-файл.
