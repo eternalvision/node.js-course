@@ -1,236 +1,61 @@
-# Реализация системы аутентификации и авторизации (Повторение)
+# 7.2. Production-аутентификация и авторизация
 
-## Шаги к реализации
+> Версия курса: 2026 · Базовая среда: **Node.js 24 LTS** · Формат модулей: **ESM**
 
-1. **Установка необходимых пакетов**:
+## Зачем этот урок
 
-   - `jsonwebtoken` для создания и верификации токенов.
-   - `bcryptjs` для хеширования и проверки паролей.
-2. **Создание модели пользователя с паролем**:
+После урока вы сможете: **Реализуйте login, refresh rotation, logout и проверку доступа.**
 
-   - Убедимся, что в вашей модели пользователя есть поле для хранения хешированного пароля.
-3. **Регистрация пользователей**:
+Ориентировочное время: 3 часа. Сначала прочитайте объяснение, затем запустите примеры и только после этого выполняйте практику.
 
-   - Создадим маршрут для регистрации пользователей, где мы будем принимать имя пользователя и пароль, хешировать пароль с помощью bcrypt и сохранять пользователя в базу данных.
-4. **Аутентификация пользователей**:
-
-   - Создадим маршрут для аутентификации, где пользователи могут войти, используя свои учетные данные. Проверим учетные данные и, если они верны, создадим JWT и отправим его пользователю.
-5. **Мидлвар для проверки токена**:
-
-   - Реализуем мидлвар, который будет проверять JWT в заголовках запросов и устанавливать пользователя для доступа в последующих маршрутах.
-
-## Установка пакетов
+## Перед началом
 
 ```bash
-npm install jsonwebtoken bcryptjs
+node --version
+npm --version
 ```
 
-## Модель пользователя
+Нужна Node.js 24.x. Весь код этой ветки относится к новой версии курса; минимальный пример находится в `modern-example`.
 
-Добавим поле для пароля:
+## Карта урока
 
-```javascript
-const userSchema = new Schema({
-    name: String,
-    password: String, // Добавьте это поле
-    projects: [{ type: Schema.Types.ObjectId, ref: "Project" }],
-});
-```
+- RBAC и object-level authorization
+- Refresh token rotation
+- Revocation и session inventory
+- Аудит событий безопасности
 
-## Регистрация
+## Главное объяснение
 
-```javascript
-const bcrypt = require("bcryptjs");
+Не запоминайте отдельные методы без модели. Сначала определите, где находится граница ответственности: runtime, транспорт, бизнес-логика, хранилище или инфраструктура. Затем выберите API и явно обработайте успешный результат, ожидаемую ошибку и отмену/завершение работы.
 
-router.post("/register", async (req, res) => {
-    try {
-        const { name, password } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({
-            name,
-            password: hashedPassword,
-        });
-        await newUser.save();
-        res.status(201).json({ message: "User created" });
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
-});
-```
+Современный Node.js следует использовать с поддерживаемой LTS-версией, ESM для нового кода, Promise API и встроенными возможностями там, где внешняя зависимость не даёт явной пользы. Экспериментальные API отмечайте отдельно и не делайте их обязательной частью production-решения без оценки риска.
 
-## Аутентификация
 
-```javascript
-const jwt = require("jsonwebtoken");
 
-router.post("/login", async (req, res) => {
-    try {
-        const { name, password } = req.body;
-        const user = await User.findOne({ name });
-        if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(401).send("Invalid credentials");
-        }
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-            expiresIn: "1h",
-        });
-        res.json({ token });
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
-});
-```
+## Практика
 
-Не забудьте добавить `JWT_SECRET` в `.env` файл.
+1. Соберите минимальный пример по теме «7.2. Production-аутентификация и авторизация».
+2. Добавьте один happy-path и два сценария ошибки.
+3. Напишите интеграционный тест встроенным `node:test`.
+4. Зафиксируйте архитектурное решение и компромисс в README проекта.
 
-## Мидлвар для проверки токена
+## Самопроверка
 
-```javascript
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
-    if (token == null) return res.sendStatus(401);
+- Могу объяснить тему своими словами, не повторяя определение.
+- Могу запустить пример и предсказать результат до запуска.
+- Обрабатываю ошибку явно и не раскрываю внутренние детали клиенту.
+- Понимаю, что в этом решении будет узким местом при росте нагрузки.
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403);
-        req.user = user;
-        next();
-    });
-}
-```
+## Домашнее задание
 
-Используем этот мидлвар в маршрутах, где необходима аутентификация:
+Расширьте пример отдельной функцией, тестом успешного сценария и тестом ошибки. Добавьте короткий раздел «Почему я выбрал это решение» и команды запуска. Не добавляйте секреты, `node_modules` и реальные `.env`-файлы.
 
-```javascript
-app.use("/api/project", authenticateToken, projectRouter);
-```
+## Официальные материалы
 
-Это основы для добавления аутентификации и авторизации в ваше приложение. Убедитесь, что вы тщательно тестируете все части системы и обрабатываете возможные ошибки.
+- [OWASP Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html)
+- [JWT BCP](https://www.rfc-editor.org/rfc/rfc8725)
+- [Документация Node.js 24](https://nodejs.org/docs/latest-v24.x/api/)
 
-## Добавление функциональности изменения пароля и удаления аккаунта пользователя
+## Что дальше
 
-Для добавления функциональности изменения пароля и удаления аккаунта пользователя, нам нужно будет добавить два новых маршрута в Express приложение. Мы уже реализовали мидлвар `authenticateToken`, который проверяет JWT и устанавливает объект `user` в `req`. Это позволит пользователям изменять свой пароль и удалять свой аккаунт после аутентификации.
-
-### Изменение пароля
-
-```javascript
-router.post("/change-password", authenticateToken, async (req, res) => {
-    try {
-        const { oldPassword, newPassword } = req.body;
-        const userId = req.user.userId; // ID пользователя из JWT
-        const user = await User.findById(userId);
-
-        if (!user) {
-            return res.status(404).send("User not found");
-        }
-
-        // Проверяем старый пароль
-        const isMatch = await bcrypt.compare(oldPassword, user.password);
-        if (!isMatch) {
-            return res.status(400).send("Old password is incorrect");
-        }
-
-        // Хешируем новый пароль и обновляем пользователя
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
-        user.password = hashedPassword;
-        await user.save();
-
-        res.status(200).send("Password successfully changed");
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
-});
-```
-
-### Удаление аккаунта
-
-```javascript
-router.delete("/delete-account", authenticateToken, async (req, res) => {
-    try {
-        const userId = req.user.userId; // ID пользователя из JWT
-        const user = await User.findById(userId);
-
-        if (!user) {
-            return res.status(404).send("User not found");
-        }
-
-        await User.deleteOne({ _id: userId });
-        res.status(200).send("Account successfully deleted");
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
-});
-```
-
-Эти два маршрута позволяют пользователям, которые успешно прошли аутентификацию, изменять свой пароль и удалять свои аккаунты. Важно убедиться в том, что они используют защиту, предоставляемую мидлваром `authenticateToken`, чтобы только аутентифицированные пользователи могли выполнять эти действия.
-
-## Валидация данных моделей `User` и `Project` с использованием библиотеки Joi
-
-Для валидации данных моделей `User` и `Project` с использованием библиотеки Joi, нам сначала нужно установить эту библиотеку, если мы ещё этого не сделали. Joi позволяет описать схемы валидации для данных, что помогает обеспечить их корректность перед сохранением в базу данных.
-
-### Установка Joi
-
-```bash
-npm install joi
-```
-
-### Валидация для модели User
-
-Создайте файл валидации, например `validation.js`, и определите в нём схему валидации для пользователя:
-
-```javascript
-const Joi = require("joi");
-
-const userValidationSchema = Joi.object({
-    name: Joi.string().min(3).max(30).required(),
-    password: Joi.string()
-        .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
-        .required(),
-    projects: Joi.array()
-        .items(Joi.string().regex(/^[0-9a-fA-F]{24}$/))
-        .optional(), // Проверяем, что это массив ObjectId
-});
-
-module.exports = {
-    userValidationSchema,
-};
-```
-
-### Валидация для модели Project
-
-Добавьте валидацию для проекта в тот же файл `validation.js`:
-
-```javascript
-const projectValidationSchema = Joi.object({
-    name: Joi.string().min(3).max(50).required(),
-    userIds: Joi.array()
-        .items(Joi.string().regex(/^[0-9a-fA-F]{24}$/))
-        .required(), // Проверяем, что это массив ObjectId
-});
-
-module.exports = {
-    userValidationSchema,
-    projectValidationSchema,
-};
-```
-
-### Применение Валидации
-
-Чтобы использовать эти схемы валидации в вашем приложении, вы должны интегрировать проверку данных на основе Joi перед выполнением операций, связанных с базой данных. Например, при создании нового пользователя или проекта:
-
-```javascript
-router.post("/register", async (req, res) => {
-    const { error } = userValidationSchema.validate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-
-    // Продолжаем регистрацию пользователя...
-});
-
-router.post("/projects", async (req, res) => {
-    const { error } = projectValidationSchema.validate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-
-    // Продолжаем создание проекта...
-});
-```
-
-Этот подход поможет нам убедиться, что данные, вводимые пользователями, соответствуют нашим требованиям, прежде чем они будут обработаны или сохранены. Joi предлагает гибкие возможности для описания и проверки данных, что позволяет легко адаптировать схемы валидации под наши конкретные потребности.
+Вернитесь на [главную страницу курса](https://github.com/eternalvision/node.js-course) и перейдите к следующей ветке по программе. Если ссылка или API изменились, источником истины считается официальная документация, а не снимок экрана или старый lock-файл.
