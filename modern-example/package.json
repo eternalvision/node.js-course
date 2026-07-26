@@ -1,0 +1,12 @@
+{
+  "name": "lesson-7-modern-example",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "start": "node Procfile",
+    "test": "node --test"
+  }
+}
