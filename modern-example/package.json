@@ -1,0 +1,12 @@
+{
+  "name": "lesson-1-modern-example",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "start": "node runtime-info.mjs",
+    "test": "node --test"
+  }
+}
