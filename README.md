@@ -36,13 +36,11 @@ git clone https://github.com/eternalvision/node.js-course.git
 cd node.js-course
 git branch --all
 git switch <имя-ветки>
-cd modern-example
-npm install
-npm test
-npm start
 ```
 
-Для примеров с PostgreSQL, MongoDB, SMTP и внешними API потребуются соответствующие сервисы и переменные среды.
+Материал, команды и примеры кода находятся непосредственно в README выбранной ветки. Отдельного каталога с демонстрациями нет: пример размещён рядом с объяснением, к которому он относится.
+
+Для практики с PostgreSQL, MongoDB, SMTP и внешними API потребуются соответствующие сервисы и переменные среды.
 
 ## Программа
 
@@ -50,61 +48,61 @@ npm start
 
 | Урок | Содержание |
 | --- | --- |
-| [1. Введение в Node.js](../../tree/1.Введение-в-Node.js) | Runtime, V8, libuv, event loop, ESM и область применения Node.js |
-| [2.1. CLI и npm](../../tree/2.1.Взаимодействие-с-средой-Node.js.-Менеджер-пакетов-npm) | package.json, lock-файлы, npm scripts, переменные среды и CLI |
-| [2.2. Асинхронность и события](../../tree/2.2.Блокирующие-и-неблокирующие-вызовы.-Работа-с-событиями.-Класс-EventEmitter) | Promise, async/await, AbortSignal, EventEmitter и Worker Threads |
-| [2.3. Возможности Node.js 24](../../tree/2.3.Современные-возможности-Node.js-24) | Type stripping, Permission Model, node:sqlite и встроенные Web API |
+| [1. Введение в Node.js](https://github.com/eternalvision/node.js-course/tree/1.Введение-в-Node.js) | Runtime, V8, libuv, event loop, ESM и область применения Node.js |
+| [2.1. CLI и npm](https://github.com/eternalvision/node.js-course/tree/2.1.Взаимодействие-с-средой-Node.js.-Менеджер-пакетов-npm) | package.json, lock-файлы, npm scripts, переменные среды и CLI |
+| [2.2. Асинхронность и события](https://github.com/eternalvision/node.js-course/tree/2.2.Блокирующие-и-неблокирующие-вызовы.-Работа-с-событиями.-Класс-EventEmitter) | Promise, async/await, AbortSignal, EventEmitter и Worker Threads |
+| [2.3. Возможности Node.js 24](https://github.com/eternalvision/node.js-course/tree/2.3.Современные-возможности-Node.js-24) | Type stripping, Permission Model, node:sqlite и встроенные Web API |
 
 ### 2. Данные и ввод-вывод
 
 | Урок | Содержание |
 | --- | --- |
-| [3.1. Buffer и потоки](../../tree/3.1.Использование-буферов,-потоков) | Buffer, Node Streams, Web Streams, pipeline и backpressure |
-| [3.2. Файлы и глобальные API](../../tree/3.2.Файлы.Глобальные-объекты) | fs/promises, path, URL, fetch, Web Crypto и безопасная работа с файлами |
+| [3.1. Buffer и потоки](https://github.com/eternalvision/node.js-course/tree/3.1.Использование-буферов,-потоков) | Buffer, Node Streams, Web Streams, pipeline и backpressure |
+| [3.2. Файлы и глобальные API](https://github.com/eternalvision/node.js-course/tree/3.2.Файлы.Глобальные-объекты) | fs/promises, path, URL, fetch, Web Crypto и безопасная работа с файлами |
 
 ### 3. HTTP и тестирование
 
 | Урок | Содержание |
 | --- | --- |
-| [4.1. HTTP-сервер](../../tree/4.1.Основы-веб-модуля.Создание-веб-сервера) | node:http, маршрутизация, body, статусы, таймауты и graceful shutdown |
-| [4.2. HTTP-клиент](../../tree/4.2.Создание-веб-клиента.Углубление-в-архитектуру) | fetch, отмена, retry, idempotency и интеграция внешних API |
-| [4.3. Тестирование и диагностика](../../tree/4.3.Тестирование-диагностика-и-качество) | node:test, mocking, coverage, inspector и diagnostic reports |
+| [4.1. HTTP-сервер](https://github.com/eternalvision/node.js-course/tree/4.1.Основы-веб-модуля.Создание-веб-сервера) | node:http, маршрутизация, body, статусы, таймауты и graceful shutdown |
+| [4.2. HTTP-клиент](https://github.com/eternalvision/node.js-course/tree/4.2.Создание-веб-клиента.Углубление-в-архитектуру) | fetch, отмена, retry, idempotency и интеграция внешних API |
+| [4.3. Тестирование и диагностика](https://github.com/eternalvision/node.js-course/tree/4.3.Тестирование-диагностика-и-качество) | node:test, mocking, coverage, inspector и diagnostic reports |
 
 ### 4. Базы данных
 
 | Урок | Содержание |
 | --- | --- |
-| [5.1. PostgreSQL](../../tree/5.1.Введение-в-базы-данных.Практика-с-PostgreSQL) | Реляционная модель, ограничения, CRUD и параметризованные запросы |
-| [5.2. Продвинутый SQL](../../tree/5.2.Расширенные-SQL-запросы.Многотабличные-базы-данных) | JOIN, индексы, транзакции, isolation и EXPLAIN ANALYZE |
-| [5.3. MongoDB](../../tree/5.3.MongoDB-и-Нормализация) | Документная модель, embedding, references, Mongoose и индексы |
+| [5.1. PostgreSQL](https://github.com/eternalvision/node.js-course/tree/5.1.Введение-в-базы-данных.Практика-с-PostgreSQL) | Реляционная модель, ограничения, CRUD и параметризованные запросы |
+| [5.2. Продвинутый SQL](https://github.com/eternalvision/node.js-course/tree/5.2.Расширенные-SQL-запросы.Многотабличные-базы-данных) | JOIN, индексы, транзакции, isolation и EXPLAIN ANALYZE |
+| [5.3. MongoDB](https://github.com/eternalvision/node.js-course/tree/5.3.MongoDB-и-Нормализация) | Документная модель, embedding, references, Mongoose и индексы |
 
 ### 5. Express 5
 
 | Урок | Содержание |
 | --- | --- |
-| [6.1. Основы Express](../../tree/6.1.Введение-в-Express-Framework) | Приложение, middleware pipeline, request, response и обработка ошибок |
-| [6.2. Маршрутизация](../../tree/6.2.Продвинутая-маршрутизация.Обработка-запросов-в-Express) | Router, params, query, body, валидация и async handlers |
-| [6.3. Представления и конфигурация](../../tree/6.3.Шаблонизаторы.Генерация-динамического-контента.Переменные-среды) | Шаблонизаторы, escaping, view models и переменные среды |
-| [6.4. Аутентификация](../../tree/6.4.Управление-сессиями-и-аутентификация) | Cookies, серверные сессии, пароли, JWT и refresh rotation |
-| [6.5. Доступ к данным](../../tree/6.5.Подключение-и-работа-с-базами-данных-в-Express) | Controller, service, repository, connection pool и транзакции |
-| [6.6. Безопасность](../../tree/6.6.Безопасность-в-Express-приложениях) | Helmet, CORS, CSRF, rate limiting, валидация и OWASP |
-| [6.7. Производительность](../../tree/6.7.Оптимизация-и-управление-производительностью) | Профилирование, кэш, compression, логи, метрики и tracing |
-| [6.8. Production](../../tree/6.8.Развертывание.Масштабирование-Express-приложений.Документирование-через-Swagger) | OpenAPI, health checks, Docker, reverse proxy и масштабирование |
+| [6.1. Основы Express](https://github.com/eternalvision/node.js-course/tree/6.1.Введение-в-Express-Framework) | Приложение, middleware pipeline, request, response и обработка ошибок |
+| [6.2. Маршрутизация](https://github.com/eternalvision/node.js-course/tree/6.2.Продвинутая-маршрутизация.Обработка-запросов-в-Express) | Router, params, query, body, валидация и async handlers |
+| [6.3. Представления и конфигурация](https://github.com/eternalvision/node.js-course/tree/6.3.Шаблонизаторы.Генерация-динамического-контента.Переменные-среды) | Шаблонизаторы, escaping, view models и переменные среды |
+| [6.4. Аутентификация](https://github.com/eternalvision/node.js-course/tree/6.4.Управление-сессиями-и-аутентификация) | Cookies, серверные сессии, пароли, JWT и refresh rotation |
+| [6.5. Доступ к данным](https://github.com/eternalvision/node.js-course/tree/6.5.Подключение-и-работа-с-базами-данных-в-Express) | Controller, service, repository, connection pool и транзакции |
+| [6.6. Безопасность](https://github.com/eternalvision/node.js-course/tree/6.6.Безопасность-в-Express-приложениях) | Helmet, CORS, CSRF, rate limiting, валидация и OWASP |
+| [6.7. Производительность](https://github.com/eternalvision/node.js-course/tree/6.7.Оптимизация-и-управление-производительностью) | Профилирование, кэш, compression, логи, метрики и tracing |
+| [6.8. Production](https://github.com/eternalvision/node.js-course/tree/6.8.Развертывание.Масштабирование-Express-приложений.Документирование-через-Swagger) | OpenAPI, health checks, Docker, reverse proxy и масштабирование |
 
 ### 6. Проектирование приложения
 
 | Урок | Содержание |
 | --- | --- |
-| [7.1. Архитектура](../../tree/7.1.Создание-приложения-и-организация-структуры) | Feature modules, composition root, dependency injection и тестируемые границы |
-| [7.2. Авторизация](../../tree/7.2.Реализация-системы-аутентификации-и-авторизации) | RBAC, object-level authorization, отзыв токенов и аудит |
-| [7.3. Развёртывание](../../tree/7.3.Развертывание-Node.js-приложения-на-Amazon-Elastic-Beanstalk) | AWS Elastic Beanstalk, IAM, health checks, rollout и rollback |
+| [7.1. Архитектура](https://github.com/eternalvision/node.js-course/tree/7.1.Создание-приложения-и-организация-структуры) | Feature modules, composition root, dependency injection и тестируемые границы |
+| [7.2. Авторизация](https://github.com/eternalvision/node.js-course/tree/7.2.Реализация-системы-аутентификации-и-авторизации) | RBAC, object-level authorization, отзыв токенов и аудит |
+| [7.3. Развёртывание](https://github.com/eternalvision/node.js-course/tree/7.3.Развертывание-Node.js-приложения-на-Amazon-Elastic-Beanstalk) | AWS Elastic Beanstalk, IAM, health checks, rollout и rollback |
 
 ### 7. Интеграции и real-time
 
 | Урок | Содержание |
 | --- | --- |
-| [8. Электронная почта](../../tree/8.Почта.SendGrid.Nodemailer) | Nodemailer, SMTP, очередь отправки, DKIM, DMARC и обработка bounce |
-| [9. WebSocket](../../tree/9.Сокеты.WebSockets.Socket.io.Создание-простого-чата) | WebSocket, Socket.IO, heartbeat, reconnect, rooms и масштабирование |
+| [8. Электронная почта](https://github.com/eternalvision/node.js-course/tree/8.Почта.SendGrid.Nodemailer) | Nodemailer, SMTP, очередь отправки, DKIM, DMARC и обработка bounce |
+| [9. WebSocket](https://github.com/eternalvision/node.js-course/tree/9.Сокеты.WebSockets.Socket.io.Создание-простого-чата) | WebSocket, Socket.IO, heartbeat, reconnect, rooms и масштабирование |
 
 ## Принципы курса
 
